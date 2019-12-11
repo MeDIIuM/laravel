@@ -14,9 +14,9 @@
 use Illuminate\Http\Request;
 
 
-Route::delete('/{client}', 'ClientsController@destroy');
-Route::resource('/', 'ClientsController');
-Route::resource('/{client}/cars', 'CarsController');
+Route::get('/', 'ClientsController@index');
+Route::resource('/clients', 'ClientsController');
+Route::resource('/clients/{clientId}/cars', 'CarsController');
 
 
 //Route::get('/clients/{client}/cars', 'CarsController@index');

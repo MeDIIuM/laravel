@@ -27,9 +27,12 @@ class ClientsController extends Controller
     }
 
     public function edit($clientId){
-        $car = DB::table('client')->where('id', $clientId)>first();
-        return view('cars_add', [
-            'clientId' => $clientId,
+        $client = DB::table('clients')->where('id','=', $clientId)->first();
+        if(empty($client)) {
+            return redirect('/');
+        }
+        return view('clients_update', [
+            'client' => $client,
         ]);
     }
 
@@ -37,10 +40,11 @@ class ClientsController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'address' => 'required|max:255',
-            'gender' =>  "required|in:m,f,м,ж",
+            'gender' =>  "required|in:m,f",
+            'phone' => 'digits|max:50',
         ]);
         if ($validator->fails()) {
-            return redirect('/create')
+            return redirect('/clients/create')
                 ->withInput()
                 ->withErrors($validator);
         }

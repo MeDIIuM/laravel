@@ -16,6 +16,8 @@
                         <td>Номер телефона</td>
                         <td>Адрес проживания</td>
                         <td>Количество машин</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     @foreach($clients as $client)
                         <tr>
@@ -23,7 +25,7 @@
                                 <div>{{$client->name}}</div>
                             </td>
                             <td class="table-text">
-                                <div>{{$client->gender}}</div>
+                                <span class="badge badge-pill badge-primary">{{$client->gender=='m'?'Мужик':'Баба'}}</span>
                             </td>
                             <td class="table-text">
                                 <div>{{$client->phone}}</div>
@@ -32,10 +34,13 @@
                                 <div>{{$client->address}}</div>
                             </td>
                             <td class="table-text">
-                                <div><a href="{{$client->id}}/cars">cars({{$client->cars}})</a></div>
+                                <div><a href="/clients/{{$client->id}}/cars">cars({{$client->cars}})</a></div>
                             </td>
                             <td>
-                                <form action="{{url('/'.$client->id)}}" method="POST">
+                                <a class="btn btn-primary" href="{{url('/clients/'.$client->id.'/edit')}}">Edit</a>
+                            </td>
+                            <td>
+                                <form action="{{url('/clients/'.$client->id)}}" method="POST">
                                     {{csrf_field()}}
                                     {{method_field('DELETE')}}
                                     <button class="btn btn-danger">
@@ -45,8 +50,14 @@
                             </td>
                         </tr>
                     @endforeach
-                    {{ $clients->links() }}
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <td>
+                            {{ $clients->links() }}
+                        </td>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
