@@ -14,7 +14,7 @@ class ClientsTest extends TestCase
         $testModelCar = "Antoshas model";
         $testNumberCar = "Antosha 001";
         $testUserPhone = '89999999999';
-        DB::table("cars")->where("number",'=', $testNumberCar)->delete();
+        DB::table("cars")->where("number", '=', $testNumberCar)->delete();
         DB::table("clients")->where("phone", '=', $testUserPhone)->delete();
         $this->visit('/clients/create')
             ->see('Клиент')

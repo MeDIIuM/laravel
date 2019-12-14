@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('content')
-{{--    @todo проверить, что мы нашли клиента --}}
+    {{--    @todo проверить, что мы нашли клиента --}}
     <div class="card-body">
         <form action="/clients/{{$clientId}}" method="POST" class="form-horizontal">
             {{csrf_field()}}
@@ -27,16 +27,18 @@
             </div>
             <div class="row">
                 <div class="col-sm-2">
-                    <input type="text" name="name"  value="{{$client->name}}" id="clients_name" class="form-control">
+                    <input type="text" name="name" value="{{$client->name}}" id="clients_name" class="form-control">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" name="gender" id="clients_gender" value="{{$client->gender}}" class="form-control">
+                    <input type="text" name="gender" id="clients_gender" value="{{$client->gender}}"
+                           class="form-control">
                 </div>
                 <div class="col-sm-2">
                     <input type="text" name="phone" value="{{$client->phone}}" id="clients_phone" class="form-control">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" name="address" value="{{$client->address}}" id="clients_address" class="form-control">
+                    <input type="text" name="address" value="{{$client->address}}" id="clients_address"
+                           class="form-control">
                 </div>
                 <div class="col-sm-2">
                     <button type="submit" class="btn btn-success">

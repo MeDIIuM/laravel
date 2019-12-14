@@ -41,7 +41,8 @@
                                 <div>{{$car->station}}</div>
                             </td>
                             <td>
-                                <a class="btn btn-primary" href="{{url('/clients/'.$car->client_id.'/cars/'.$car->id.'/edit')}}">Edit</a>
+                                <a class="btn btn-primary"
+                                   href="{{url('/clients/'.$car->client_id.'/cars/'.$car->id.'/edit')}}">Edit</a>
                             </td>
                             <td>
                                 <form action="{{url('/clients/'.$car->client_id.'/cars/'.$car->id)}}" method="POST">

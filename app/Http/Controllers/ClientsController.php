@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class ClientsController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $clients = \DB::table('clients')
             ->select('*', \DB::raw('(select count(*) from cars where cars.client_id = clients.id) as \'cars\''))
             ->orderBy('created_at', 'asc')
@@ -22,13 +23,16 @@ class ClientsController extends Controller
             'clients' => $clients
         ]);
     }
-    public function create(){
+
+    public function create()
+    {
         return view('clients_create', []);
     }
 
-    public function edit($clientId){
-        $client = DB::table('clients')->where('id','=', $clientId)->first();
-        if(empty($client)) {
+    public function edit($clientId)
+    {
+        $client = DB::table('clients')->where('id', '=', $clientId)->first();
+        if (empty($client)) {
             return redirect('/');
         }
         return view('clients_update', [
@@ -37,11 +41,12 @@ class ClientsController extends Controller
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'address' => 'required|max:255',
-            'gender' =>  "required|in:m,f",
+            'gender' => "required|in:m,f",
             'phone' => 'required|max:50',
         ]);
         if ($validator->fails()) {
@@ -50,38 +55,40 @@ class ClientsController extends Controller
                 ->withErrors($validator);
         }
         DB::table('clients')->insert([
-        "name" => $request->name,
-        "gender" => $request->gender,
-        "phone" => $request->phone,
-        "address" => $request->address
+            "name" => $request->name,
+            "gender" => $request->gender,
+            "phone" => $request->phone,
+            "address" => $request->address
         ]);
         return redirect('/');
     }
 
-    public function update($clientId, Request $request){
+    public function update($clientId, Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'gender' =>  "required|in:m,f",
+            'gender' => "required|in:m,f",
             'phone' => 'required|max:50',
             'address' => 'required|max:255',
         ]);
         if ($validator->fails()) {
-            return redirect('/clients/'.$clientId.'/edit')
+            return redirect('/clients/' . $clientId . '/edit')
                 ->withInput()
                 ->withErrors($validator);
         }
-        DB::table("clients")->where('id', '=',$clientId)->update([
-            "name"=>$request->name,
-            "gender"=>$request->gender,
-            "phone"=>$request->phone,
-            "address"=>$request->address,
+        DB::table("clients")->where('id', '=', $clientId)->update([
+            "name" => $request->name,
+            "gender" => $request->gender,
+            "phone" => $request->phone,
+            "address" => $request->address,
         ]);
         return redirect('/clients');
     }
 
-    public function destroy($client){
+    public function destroy($client)
+    {
         DB::table('clients')->where('id', '=', $client)->delete();
-        DB::table('cars')->where('client_id','=', $client)->delete();
+        DB::table('cars')->where('client_id', '=', $client)->delete();
         return redirect('/');
     }
 }

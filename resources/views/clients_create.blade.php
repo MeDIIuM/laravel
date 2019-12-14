@@ -25,16 +25,18 @@
             </div>
             <div class="row">
                 <div class="col-sm-2">
-                    <input type="text" name="name"  value="{{ old('name') }}" id="clients_name" class="form-control">
+                    <input type="text" name="name" value="{{ old('name') }}" id="clients_name" class="form-control">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" name="gender" id="clients_gender" value="{{ old('gender') }}" class="form-control">
+                    <input type="text" name="gender" id="clients_gender" value="{{ old('gender') }}"
+                           class="form-control">
                 </div>
                 <div class="col-sm-2">
                     <input type="text" name="phone" value="{{ old('phone') }}" id="clients_phone" class="form-control">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" name="address" value="{{ old('address') }}" id="clients_address" class="form-control">
+                    <input type="text" name="address" value="{{ old('address') }}" id="clients_address"
+                           class="form-control">
                 </div>
                 <div class="col-sm-2">
                     <button type="submit" class="btn btn-success">

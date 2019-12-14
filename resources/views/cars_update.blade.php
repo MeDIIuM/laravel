@@ -1,30 +1,30 @@
 @extends('layouts.layout')
 @section('content')
-{{--    @todo проверить, что мы нашли машину--}}
+    {{--    @todo проверить, что мы нашли машину--}}
     <div class="card-body">
         <form method="POST" action="/clients/{{$clientId}}/cars/{{$car->id}}" class="form-horizontal">
             {{csrf_field()}}
             {{method_field('PUT')}}
-                <div class="row">
-                    <h1>Машина:</h1>
+            <div class="row">
+                <h1>Машина:</h1>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p>Марка</p>
                 </div>
-                <div class="row">
-                    <div class="col-sm-2">
-                        <p>Марка</p>
-                    </div>
-                    <div class="col-sm-2">
-                        <p>Цвет</p>
-                    </div>
-                    <div class="col-sm-2">
-                        <p>Модель</p>
-                    </div>
-                    <div class="col-sm-2">
-                        <p>Гос. номер</p>
-                    </div>
-                    <div class="col-sm-2">
-                        <p>Стоянка</p>
-                    </div>
+                <div class="col-sm-2">
+                    <p>Цвет</p>
                 </div>
+                <div class="col-sm-2">
+                    <p>Модель</p>
+                </div>
+                <div class="col-sm-2">
+                    <p>Гос. номер</p>
+                </div>
+                <div class="col-sm-2">
+                    <p>Стоянка</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-2">
                     <input type="text" name="brand" value="{{$car->brand}}" id="cars_brand" class="form-control">
@@ -39,9 +39,10 @@
                     <input type="text" name="number" value="{{$car->number}}" id="cars_number" class="form-control">
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" name="station" value="on" checked = "checked" id="cars_station" class="form-control">
+                    <input type="checkbox" name="station" value="on" checked="checked" id="cars_station"
+                           class="form-control">
                 </div>
-                <div class="col-sm-2" id="button" >
+                <div class="col-sm-2" id="button">
                     <button type="submit" class="btn btn-success">
                         Update
                     </button>

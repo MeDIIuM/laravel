@@ -4,7 +4,7 @@
         <form method="POST" action="/clients/{{$clientId}}/cars" class="form-horizontal">
             {{csrf_field()}}
             <div class="row">
-                    <h1>Машина:</h1>
+                <h1>Машина:</h1>
             </div>
             <div class="row">
                 <div class="col-sm-2">
