@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 
 Route::get('/', 'ClientsController@index');
+Route::get('/clients/station', 'StationController@index');
 Route::resource('/clients', 'ClientsController');
 Route::resource('/clients/{clientId}/cars', 'CarsController');
 

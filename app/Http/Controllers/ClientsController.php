@@ -33,6 +33,7 @@ class ClientsController extends Controller
         }
         return view('clients_update', [
             'client' => $client,
+            'clientId' => $clientId
         ]);
     }
 
@@ -41,7 +42,7 @@ class ClientsController extends Controller
             'name' => 'required|max:255',
             'address' => 'required|max:255',
             'gender' =>  "required|in:m,f",
-            'phone' => 'digits|max:50',
+            'phone' => 'required|max:50',
         ]);
         if ($validator->fails()) {
             return redirect('/clients/create')
@@ -55,6 +56,27 @@ class ClientsController extends Controller
         "address" => $request->address
         ]);
         return redirect('/');
+    }
+
+    public function update($clientId, Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'gender' =>  "required|in:m,f",
+            'phone' => 'required|max:50',
+            'address' => 'required|max:255',
+        ]);
+        if ($validator->fails()) {
+            return redirect('/clients/'.$clientId.'/edit')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        DB::table("clients")->where('id', '=',$clientId)->update([
+            "name"=>$request->name,
+            "gender"=>$request->gender,
+            "phone"=>$request->phone,
+            "address"=>$request->address,
+        ]);
+        return redirect('/clients');
     }
 
     public function destroy($client){

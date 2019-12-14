@@ -54,6 +54,7 @@
                     <tfoot>
                     <tr>
                         <td>
+{{--                            @todo стили для пагинации--}}
                             {{ $clients->links() }}
                         </td>
                     </tr>

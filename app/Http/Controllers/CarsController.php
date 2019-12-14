@@ -81,7 +81,7 @@ class CarsController extends Controller
             "colour"=>$request->colour,
             "model"=>$request->model,
             "number"=>$request->number,
-            "station"=>$request->station,
+            "station"=>$request->station == 'on'
         ]);
         return redirect('/clients/'.$clientId."/cars");
     }

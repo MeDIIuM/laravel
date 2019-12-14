@@ -1,7 +1,8 @@
 @extends('layouts.layout')
 @section('content')
+{{--    @todo проверить, что мы нашли клиента --}}
     <div class="card-body">
-        <form action="{{url('/clients')}}" method="POST" class="form-horizontal">
+        <form action="/clients/{{$clientId}}" method="POST" class="form-horizontal">
             {{csrf_field()}}
             {{method_field('PUT')}}
             <div class="row">
@@ -45,5 +46,4 @@
             </div>
         </form>
     </div>
-
 @endsection

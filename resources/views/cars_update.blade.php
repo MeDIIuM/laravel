@@ -1,7 +1,8 @@
 @extends('layouts.layout')
 @section('content')
+{{--    @todo проверить, что мы нашли машину--}}
     <div class="card-body">
-        <form method="POST" action="/clients/{{$clientId}}/cars" class="form-horizontal">
+        <form method="POST" action="/clients/{{$clientId}}/cars/{{$car->id}}" class="form-horizontal">
             {{csrf_field()}}
             {{method_field('PUT')}}
                 <div class="row">
@@ -38,7 +39,7 @@
                     <input type="text" name="number" value="{{$car->number}}" id="cars_number" class="form-control">
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" name="station" value="{{$car->station}}" id="cars_station" class="form-control">
+                    <input type="checkbox" name="station" value="on" checked = "checked" id="cars_station" class="form-control">
                 </div>
                 <div class="col-sm-2" id="button" >
                     <button type="submit" class="btn btn-success">
