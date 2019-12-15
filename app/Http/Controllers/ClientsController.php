@@ -19,7 +19,7 @@ class ClientsController extends Controller
             ->orderBy('created_at', 'asc')
             ->paginate(5);
 
-        return view('index', [
+        return view('clients_index', [
             'clients' => $clients
         ]);
     }

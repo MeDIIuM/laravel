@@ -13,7 +13,7 @@ class ClientsTest extends TestCase
         $testColourCar = "Antoshas colour";
         $testModelCar = "Antoshas model";
         $testNumberCar = "Antosha 001";
-        $testUserPhone = '89999999999';
+        $testUserPhone = '000000000';
         DB::table("cars")->where("number", '=', $testNumberCar)->delete();
         DB::table("clients")->where("phone", '=', $testUserPhone)->delete();
         $this->visit('/clients/create')
@@ -40,7 +40,8 @@ class ClientsTest extends TestCase
             ->type($testBrandCar, 'brand')
             ->type($testColourCar, 'colour')
             ->type($testModelCar, 'model')
-            ->type($testNumberCar, 'number');
+            ->type($testNumberCar, 'number')
+            ->check('station');
         $this->press("Add")
             ->seePageIs("/clients/$createdClient->id/cars");
 
@@ -48,10 +49,9 @@ class ClientsTest extends TestCase
             ->see($testBrandCar)
             ->see($testColourCar)
             ->see($testModelCar)
-            ->see($testNumberCar);
+            ->see($testNumberCar)
+            ->see('1');
     }
 
-//    @todo тест создание клиента и проверка его в списке
-//@todo новый контроллер и роут со списком машин на стоянке
 //@todo тест создание клиента, создание машины и проверка машины в списке, проверка, что она на стоянке
 }

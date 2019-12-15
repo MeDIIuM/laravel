@@ -15,7 +15,7 @@ class CarsController extends Controller
     {
         $cars = DB::table('cars')->where('client_id', $clientId)->get();
         $client = DB::table('clients')->where('id', $clientId)->first();
-        return view('cars', [
+        return view('cars_index', [
             'cars' => $cars,
             'client' => $client,
         ]);
@@ -35,10 +35,10 @@ class CarsController extends Controller
             'colour' => 'required|max:255',
             'model' => 'required|max:255',
             'number' => 'required|max:255',
-            'station' => 'boolean'
+            'station' => "in:on,off"
         ]);
         if ($validator->fails()) {
-            return redirect('/clients/' . $clientId . "/cars")
+            return redirect('/clients/' . $clientId . "/cars/create")
                 ->withInput()
                 ->withErrors($validator);
         }

@@ -1,7 +1,15 @@
 @extends('layouts.layout')
 @section('content')
-    {{--    @todo проверить, что мы нашли машину--}}
     <div class="card-body">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="POST" action="/clients/{{$clientId}}/cars/{{$car->id}}" class="form-horizontal">
             {{csrf_field()}}
             {{method_field('PUT')}}
@@ -39,8 +47,7 @@
                     <input type="text" name="number" value="{{$car->number}}" id="cars_number" class="form-control">
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" name="station" value="on" checked="checked" id="cars_station"
-                           class="form-control">
+                    <input type="checkbox" name="station" id="cars_station" class="form-control" checked={{($car->station==true?"on":"off")}}>
                 </div>
                 <div class="col-sm-2" id="button">
                     <button type="submit" class="btn btn-success">
