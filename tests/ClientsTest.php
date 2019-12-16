@@ -13,8 +13,13 @@ class ClientsTest extends TestCase
         $testColourCar = "Antoshas colour";
         $testModelCar = "Antoshas model";
         $testNumberCar = "Antosha 001";
+        $testBrandCar2 = "Antoshas brand2";
+        $testColourCar2 = "Antoshas colour2";
+        $testModelCar2 = "Antoshas model2";
+        $testNumberCar2 = "Antosha 002";
         $testUserPhone = '000000000';
         DB::table("cars")->where("number", '=', $testNumberCar)->delete();
+        DB::table("cars")->where("number", '=', $testNumberCar2)->delete();
         DB::table("clients")->where("phone", '=', $testUserPhone)->delete();
         $this->visit('/clients/create')
             ->see('Клиент')
@@ -51,7 +56,27 @@ class ClientsTest extends TestCase
             ->see($testModelCar)
             ->see($testNumberCar)
             ->see('1');
-    }
+        $this->visit("/clients/$createdClient->id/cars/create")
+            ->see('Машина:')
+            ->see('Марка')
+            ->see('Цвет')
+            ->see('Модель')
+            ->see('Гос. номер')
+            ->type($testBrandCar2, 'brand')
+            ->type($testColourCar2, 'colour')
+            ->type($testModelCar2, 'model')
+            ->type($testNumberCar2, 'number');
+        $this->press("Add")
+            ->seePageIs("/clients/$createdClient->id/cars");
 
-//@todo тест создание клиента, создание машины и проверка машины в списке, проверка, что она на стоянке
+        $this->visit("/clients/$createdClient->id/cars")
+            ->see($testBrandCar2)
+            ->see($testColourCar2)
+            ->see($testModelCar2)
+            ->see($testNumberCar2)
+            ->see('0');
+        DB::table("cars")->where("number", '=', $testNumberCar)->delete();
+        DB::table("cars")->where("number", '=', $testNumberCar2)->delete();
+        DB::table("clients")->where("phone", '=', $testUserPhone)->delete();
+    }
 }
