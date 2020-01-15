@@ -92,7 +92,7 @@ class CarsController extends Controller
         $number = $request->input('number');
         $station = $request->input('station');
         $carsModel= new Cars();
-        $carsModel->addCar($id,$brand,$colour,$model,$number,$station);
+        $carsModel->updateCar($id,$brand,$colour,$model,$number,$station);
         return redirect('/clients/' . $clientId . "/cars");
     }
 

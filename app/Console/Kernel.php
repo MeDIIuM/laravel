@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
         $database = config('database.connections.mysql.database');
         $schedule->exec("touch /tmp/lar1.txt");
         $schedule->exec("mysqldump -h {$host} -u {$username} -p{$password} {$database}")
-            ->everyMinute()
-            ->sendOutputTo('/home/b00ris/www/laravelapp/app/backups/daily_backup.sql');
+            ->daily()
+            ->sendOutputTo('/var/www/laravel/backups/daily_backup.sql');
     }
 }
