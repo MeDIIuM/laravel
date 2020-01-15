@@ -66,7 +66,7 @@ class CarsController extends Controller
     public function edit($clientId, $id)
     {
         $carsModel= new Cars();
-        $car = $carsModel->getClientById($id);
+        $car = $carsModel->getCarById($id);
         return view('cars_update', [
             'clientId' => $clientId,
             'car' => $car,
