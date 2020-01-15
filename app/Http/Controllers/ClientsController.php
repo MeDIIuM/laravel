@@ -12,13 +12,9 @@ use Illuminate\Support\Facades\DB;
 
 class ClientsController extends Controller
 {
-    public function index()
-    {
-        $clients = \DB::table('clients')
-            ->select('*', \DB::raw('(select count(*) from cars where cars.client_id = clients.id) as \'cars\''))
-            ->orderBy('created_at', 'asc')
-            ->paginate(5);
-
+    public function index(){
+        $clientModel= new Clients();
+        $clients = $clientModel->getClients();
         return view('clients_index', [
             'clients' => $clients
         ]);
@@ -31,7 +27,8 @@ class ClientsController extends Controller
 
     public function edit($clientId)
     {
-        $client = DB::table('clients')->where('id', '=', $clientId)->first();
+        $clientModel= new Clients();
+        $client = $clientModel->getClientById($clientId);
         if (empty($client)) {
             return redirect('/');
         }
@@ -54,12 +51,12 @@ class ClientsController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
-        DB::table('clients')->insert([
-            "name" => $request->name,
-            "gender" => $request->gender,
-            "phone" => $request->phone,
-            "address" => $request->address
-        ]);
+        $name = $request->input('name');
+        $gender = $request->input('gender');
+        $phone = $request->input('phone');
+        $address = $request->input('address');
+        $clientModel= new Clients();
+        $clientModel->addClient($name,$gender,$phone,$address);
         return redirect('/');
     }
 
@@ -76,19 +73,19 @@ class ClientsController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
-        DB::table("clients")->where('id', '=', $clientId)->update([
-            "name" => $request->name,
-            "gender" => $request->gender,
-            "phone" => $request->phone,
-            "address" => $request->address,
-        ]);
+        $name = $request->input('name');
+        $gender = $request->input('gender');
+        $phone = $request->input('phone');
+        $address = $request->input('address');
+        $clientModel= new Clients();
+        $clientModel->updateClient($clientId, $name,$gender,$phone,$address);
         return redirect('/clients');
     }
 
     public function destroy($client)
     {
-        DB::table('clients')->where('id', '=', $client)->delete();
-        DB::table('cars')->where('client_id', '=', $client)->delete();
+        $clientModel= new Clients();
+        $clientModel->deleteClient($client);
         return redirect('/');
     }
 }
