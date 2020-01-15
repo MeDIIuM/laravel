@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Cars;
+use App\Clients;
+use http\Client;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class CarsController extends Controller
 {
     public function index($clientId)
     {
-        $cars = DB::table('cars')->where('client_id', $clientId)->get();
-        $client = DB::table('clients')->where('id', $clientId)->first();
+        $carsModel= new Cars();
+        $cars = $carsModel->getCars($clientId);
+        $client = $carsModel->getClientForCar($clientId);
         return view('cars_index', [
             'cars' => $cars,
             'client' => $client,
@@ -42,27 +45,28 @@ class CarsController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
-        DB::table('cars')->insert([
-            "client_id" => $clientId,
-            "brand" => $request->brand,
-            "colour" => $request->colour,
-            "model" => $request->model,
-            "number" => $request->number,
-            "station" => $request->station == 'on',
-        ]);
+        $brand = $request->input('brand');
+        $colour = $request->input('colour');
+        $model = $request->input('model');
+        $number = $request->input('number');
+        $station = $request->input('station');
+        $carsModel= new Cars();
+        $carsModel->addCar($clientId,$brand,$colour,$model,$number,$station);
         return redirect('/clients/' . $clientId . "/cars");
     }
 
     public function destroy($clientId, $car)
     {
-        DB::table('cars')->where('id', '=', $car)->delete();
+        $carsModel= new Cars();
+        $carsModel->deleteCar($car);
         return redirect('/clients/' . $clientId . '/cars');
     }
 
 
     public function edit($clientId, $id)
     {
-        $car = DB::table('cars')->where('id', '=', $id)->first();
+        $carsModel= new Cars();
+        $car = $carsModel->getClientById($id);
         return view('cars_update', [
             'clientId' => $clientId,
             'car' => $car,
@@ -82,13 +86,13 @@ class CarsController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
-        DB::table("cars")->where('id', '=', $id)->update([
-            "brand" => $request->brand,
-            "colour" => $request->colour,
-            "model" => $request->model,
-            "number" => $request->number,
-            "station" => $request->station == 'on'
-        ]);
+        $brand = $request->input('brand');
+        $colour = $request->input('colour');
+        $model = $request->input('model');
+        $number = $request->input('number');
+        $station = $request->input('station');
+        $carsModel= new Cars();
+        $carsModel->addCar($id,$brand,$colour,$model,$number,$station);
         return redirect('/clients/' . $clientId . "/cars");
     }
 
