@@ -47,7 +47,8 @@
                     <input type="text" name="number" value="{{$car->number}}" id="cars_number" class="form-control">
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" name="station" id="cars_station" class="form-control" checked={{($car->station==true?"on":"off")}}>
+                    <input type="checkbox" name="station" id="cars_station" class="form-control"
+                           checked={{($car->station==true?"on":"off")}}>
                 </div>
                 <div class="col-sm-2" id="button">
                     <button type="submit" class="btn btn-success">

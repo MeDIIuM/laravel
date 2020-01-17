@@ -46,17 +46,20 @@ class ClientsController extends Controller
             'gender' => "required|in:m,f",
             'phone' => 'required|max:50',
         ]);
+
         if ($validator->fails()) {
             return redirect('/clients/create')
                 ->withInput()
                 ->withErrors($validator);
         }
+
         $name = $request->input('name');
         $gender = $request->input('gender');
         $phone = $request->input('phone');
         $address = $request->input('address');
         $clientModel= new Clients();
         $clientModel->addClient($name,$gender,$phone,$address);
+
         return redirect('/');
     }
 
@@ -68,17 +71,20 @@ class ClientsController extends Controller
             'phone' => 'required|max:50',
             'address' => 'required|max:255',
         ]);
+
         if ($validator->fails()) {
             return redirect('/clients/' . $clientId . '/edit')
                 ->withInput()
                 ->withErrors($validator);
         }
+
         $name = $request->input('name');
         $gender = $request->input('gender');
         $phone = $request->input('phone');
         $address = $request->input('address');
         $clientModel= new Clients();
         $clientModel->updateClient($clientId, $name,$gender,$phone,$address);
+
         return redirect('/clients');
     }
 

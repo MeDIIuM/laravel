@@ -25,7 +25,7 @@
                                 <div>{{$client->name}}</div>
                             </td>
                             <td class="table-text">
-                               <div>{{$client->gender=='m'?'Муж':'Жен'}}</div>
+                                <div>{{$client->gender=='m'?'Муж':'Жен'}}</div>
                             </td>
                             <td class="table-text">
                                 <div>{{$client->phone}}</div>

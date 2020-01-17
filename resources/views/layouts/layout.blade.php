@@ -19,7 +19,7 @@
             <li>
                 <a class="nav-link" href="/clients/create">Add</a>
             </li>
-                <a class="nav-link" href="/clients/station">Station</a>
+            <a class="nav-link" href="/clients/station">Station</a>
             </li>
         </ul>
     </div>
