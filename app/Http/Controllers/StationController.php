@@ -10,7 +10,7 @@ class StationController extends Controller
     public function index()
     {
         $cars = DB::table('cars')->where('station', '=', true)->get();
-        return view('station_index', [
+        return view('/layouts/station_index', [
             'cars' => $cars,
         ]);
     }

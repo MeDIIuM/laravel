@@ -11,6 +11,7 @@ class ClientsTest extends DuskTestCase
     {
 
         $this->browse(function (Browser $browser) {
+
             $testBrandCar = "Antoshas brand";
             $testColourCar = "Antoshas colour";
             $testModelCar = "Antoshas model";
@@ -20,9 +21,11 @@ class ClientsTest extends DuskTestCase
             $testModelCar2 = "Antoshas model2";
             $testNumberCar2 = "Antosha 002";
             $testUserPhone = '000000000';
+
             DB::table("cars")->where("number", '=', $testNumberCar)->delete();
             DB::table("cars")->where("number", '=', $testNumberCar2)->delete();
             DB::table("clients")->where("phone", '=', $testUserPhone)->delete();
+
             $browser->visit('/clients/create')
                 ->assertSee('Клиент')
                 ->assertSee('Имя')
@@ -33,11 +36,14 @@ class ClientsTest extends DuskTestCase
                 ->type('m', 'gender')
                 ->type($testUserPhone, 'phone')
                 ->type('Antoshas steet 44', 'address');
+
             $browser->press("Add")
                 ->seePageIs('/');
 
             $createdClient = DB::table("clients")->where("phone", '=', $testUserPhone)->first();
+
             $this->assertNotEmpty($createdClient);
+
             $browser->visit("/clients/$createdClient->id/cars/create")
                 ->assertSee('Машина:')
                 ->assertSee('Марка')
@@ -49,6 +55,7 @@ class ClientsTest extends DuskTestCase
                 ->type($testModelCar, 'model')
                 ->type($testNumberCar, 'number')
                 ->check('station');
+
             $browser->press("Add")
                 ->seePageIs("/clients/$createdClient->id/cars");
 
@@ -58,6 +65,7 @@ class ClientsTest extends DuskTestCase
                 ->assertSee($testModelCar)
                 ->assertSee($testNumberCar)
                 ->assertSee('1');
+
             $browser->visit("/clients/$createdClient->id/cars/create")
                 ->assertSee('Машина:')
                 ->assertSee('Марка')
@@ -68,6 +76,7 @@ class ClientsTest extends DuskTestCase
                 ->type($testColourCar2, 'colour')
                 ->type($testModelCar2, 'model')
                 ->type($testNumberCar2, 'number');
+
             $browser->press("Add")
                 ->seePageIs("/clients/$createdClient->id/cars");
 
@@ -77,9 +86,11 @@ class ClientsTest extends DuskTestCase
                 ->assertSee($testModelCar2)
                 ->assertSee($testNumberCar2)
                 ->assertSee('0');
+
             DB::table("cars")->where("number", '=', $testNumberCar)->delete();
             DB::table("cars")->where("number", '=', $testNumberCar2)->delete();
             DB::table("clients")->where("phone", '=', $testUserPhone)->delete();
+
         });
 
     }
