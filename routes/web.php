@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
 Route::get('/', 'ClientController@index');
 Route::get('/clients/station', 'StationController@index');
 Route::resource('/clients', 'ClientController');
